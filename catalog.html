@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optika.uz - Eksklyuziv Ko'zoynaklar Katalogi</title>
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #151c2c;
+            --bg-card: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --accent-gold: #f59e0b;
+            --border-color: #334155;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --accent-gold: #d97706;
+            --border-color: #e2e8f0;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: var(--accent);
+            color: #ffffff;
+        }
+
+        .cart-badge {
+            background-color: #ef4444;
+            color: white;
+            border-radius: 9999px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-left: 5px;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .control-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem 0.9rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .control-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        main {
+            max-width: 1300px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            font-size: 1.15rem;
+        }
+
+        /* Filtering and Search Panel */
+        .filter-panel {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.5rem;
+            margin-bottom: 2.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.75rem 1.2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 1rem;
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
+
+        .filter-btn {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .filter-btn.active,
+        .filter-btn:hover {
+            background-color: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background-color: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background-color: var(--accent-gold);
+            color: #000;
+            font-weight: 800;
+            font-size: 0.75rem;
+            padding: 0.3rem 0.7rem;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            background-color: #ffffff;
+        }
+
+        .product-info {
+            padding: 1.4rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .product-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 0.4rem;
+        }
+
+        .product-desc {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
+
+        .product-rating {
+            color: var(--accent-gold);
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .product-price {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--accent-gold);
+            margin-bottom: 1.2rem;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: #fff;
+            padding: 0.85rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--accent-hover);
+        }
+
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 2rem;
+            margin-top: auto;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">🕶 OPTIKA.UZ</a>
+            <ul class="nav-links">
+                <li><a href="index.html" data-i18n="home">Bosh sahifa</a></li>
+                <li><a href="catalog.html" class="active" data-i18n="catalog">Katalog</a></li>
+                <li><a href="detail.html" data-i18n="detail">Batafsil / Trendlar</a></li>
+                <li><a href="about.html" data-i18n="about">Biz haqimizda</a></li>
+                <li><a href="cart.html" data-i18n="cart">Savat <span id="cart-badge-count"
+                            class="cart-badge">0</span></a></li>
+                <li><a href="contact.html" data-i18n="contact">Aloqa & Buyurtma</a></li>
+            </ul>
+            <div class="controls">
+                <button id="theme-btn" class="control-btn" onclick="toggleTheme()">🌙</button>
+                <button class="control-btn" onclick="changeLanguage('uz')">UZ</button>
+                <button class="control-btn" onclick="changeLanguage('ru')">RU</button>
+                <button class="control-btn" onclick="changeLanguage('en')">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="page-title" data-i18n="catalogTitle">Barcha Ko'zoynaklar Katalogi</h1>
+        <p class="page-subtitle" data-i18n="catalogSub">Eng sara premium ko'zoynaklar va aksessuarlar to'plami</p>
+
+        <!-- Filter Bar -->
+        <div class="filter-panel">
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Ko'zoynak qidirish..." oninput="filterProducts()">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="setCategory('all', this)"
+                    data-i18n="catAll">Barchasi</button>
+                <button class="filter-btn" onclick="setCategory('sun', this)" data-i18n="catSun">Quyoshdan</button>
+                <button class="filter-btn" onclick="setCategory('optical', this)" data-i18n="catOpt">Optik /
+                    Kompyuter</button>
+                <button class="filter-btn" onclick="setCategory('premium', this)" data-i18n="catPrem">Premium</button>
+            </div>
+        </div>
+
+        <div id="product-container" class="product-grid"></div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Optika.uz. Telegram Kanalimiz: <a href="https://t.me/achki_trend"
+                style="color:var(--accent); text-decoration:none;" target="_blank">@achki_trend</a></p>
+    </footer>
+
+    <script>
+        const products = [
+            { id: 1, category: "sun", badge: "HOT", name: { uz: "Klassik Qora Ko'zoynak", ru: "Классические Черные Очки", en: "Classic Black Glasses" }, desc: { uz: "UV400 quyoshdan himoyalovchi va yengil romli model.", ru: "Легкая модель с защитой от солнца UV400.", en: "Lightweight frame model with UV400 protection." }, price: "250,000 UZS", rating: "⭐⭐⭐⭐⭐ (4.9)", img: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQqTcWwrFqPbqzbkYBskd9-OrvulF4FAGuMmwnYdB6oOVR_B8MR9ZOP_7DEYJuMjccKHL8xHnQBBA1nVYQkkJAX2nXocttmDLBX0R2zUAS6ESncXv1SDT1Y7HpyPPt8gADv885YCDQ&usqp=CAc" },
+            { id: 2, category: "optical", badge: "BEST", name: { uz: "Zamonaviy Stil", ru: "Современный Стиль", en: "Modern Style" }, desc: { uz: "Kompyuterda ishlash va shahar stili uchun ideal ko'zoynak.", ru: "Идеально подходит для работы за компьютером.", en: "Ideal for computer work and urban fashion." }, price: "320,000 UZS", rating: "⭐⭐⭐⭐ (4.7)", img: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRt1kSD0d8cusOOsfcGqtqpZ2WgEWw1PF0vFqZZIM40TRp2ojCDGTQX4BAjMl-xghGWP8N52w_vQW71Ob5ylc0y4EsCmw6vYu9W19tI8bm2iBRDUt5H-xcZ8-2244XC_sGw0gwl910&usqp=CAc" },
+            { id: 3, category: "premium", badge: "LUX", name: { uz: "Retro Premium", ru: "Ретро Премиум", en: "Retro Premium" }, desc: { uz: "Mustahkam material va retro uslubdagi premium dizayn.", ru: "Прочный материал и премиальный ретро дизайн.", en: "Durable material with premium retro styling." }, price: "400,000 UZS", rating: "⭐⭐⭐⭐⭐ (5.0)", img: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQ-M4ESQsRTf2lsFSCr7xQvgXuwg04gPF4sGDqVe7LAedsrgL_nF73z3vELBYU7gh3h0BmAUi7LP4aEfLnsxpd3GV5pWc7m8h2vWnewcxwzzlLFM-hUWJAImySFewg79QEGkzqcsg&usqp=CAc" },
+            { id: 4, category: "sun", badge: "NEW", name: { uz: "Sport Dizayn", ru: "Спортивный Дизайн", en: "Sport Design" }, desc: { uz: "Faol hayot va mashg'ulotlar uchun maxsus himoya ko'zoynagi.", ru: "Специальные очки для активного отдыха.", en: "Special protective glasses for outdoor sports." }, price: "280,000 UZS", rating: "⭐⭐⭐⭐ (4.6)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUZmXT6-sDRYj6SHrX7wK7hioUnvTB6xIiu23139--bg&s" },
+            { id: 5, category: "sun", badge: "SUMMER", name: { uz: "Yozgi Elegance", ru: "Летний Элегант", en: "Summer Elegance" }, desc: { uz: "Yozgi issiq kunlar va plyaj mavsumi uchun mos shaffof linza.", ru: "Отличный вариант для пляжа и летних дней.", en: "Great transparent lenses for summer days." }, price: "350,000 UZS", rating: "⭐⭐⭐⭐⭐ (4.8)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOFnP1TvjHsbemWHDxYQ0YKBZ6Rv3oX1JvS4ppKZDy9Q&s" },
+            { id: 6, category: "premium", badge: "2026", name: { uz: "Futuristik Ko'zoynak", ru: "Футуристические Очки", en: "Futuristic Glasses" }, desc: { uz: "Zamonaviy va noodatiy formadagi trend dizayn.", ru: "Необычная форма и стильный футуристичный дизайн.", en: "Unusual shape and trendy futuristic design." }, price: "450,000 UZS", rating: "⭐⭐⭐⭐⭐ (4.9)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfYE-1sUFL4Z-Htg8ev7DjVQosp8jNGUkW5JJxVh0Mxg&s" },
+            { id: 7, category: "premium", badge: "GOLD", name: { uz: "Oltin Hoshiyali", ru: "Золотая Оправа", en: "Gold Frame" }, desc: { uz: "Zarif oltin rangli metall karkas bilan tayyorlangan.", ru: "Элегантная золотистая металлическая оправа.", en: "Elegant gold metallic frame construction." }, price: "500,000 UZS", rating: "⭐⭐⭐⭐⭐ (5.0)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnP_t1ZIyp21OhAwQAUWJ5URzpHH6BDN5-gJEq5Gi64Q&s" },
+            { id: 8, category: "optical", badge: "CLEAR", name: { uz: "Shaffof Karkas", ru: "Прозрачный Каркас", en: "Transparent Frame" }, desc: { uz: "Yengil akril materiali va zamonaviy minimalist korpus.", ru: "Легкий акриловый материал и минимализм.", en: "Lightweight acrylic and minimalist design." }, price: "270,000 UZS", rating: "⭐⭐⭐⭐ (4.5)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRr7tHXjymMCXi4_aMvJgsJ60B1TyiqyRijTlfNfTvoyg&s" },
+            { id: 9, category: "sun", badge: "TREND", name: { uz: "Trend 2026 Model", ru: "Трендовая Модель 2026", en: "Trend 2026 Model" }, desc: { uz: "Yangi mavsumning eng xaridorgir ko'zoynak modeli.", ru: "Бестселлер нового сезона 2026 года.", en: "Top bestseller model of the 2026 season." }, price: "380,000 UZS", rating: "⭐⭐⭐⭐⭐ (4.9)", img: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTMHxaUjkzqXGahlAd0ERl7BO_u1bB2SmFJfnHwUwR_CtHYO1wUiZnBWZjpWgoCdlSZwmldJhq-c-XhC_RZFlSuiERNVJD20CZKcz713cJdqY5U-ppWTPY8Sfr3lAnl5jTLeiTbPZRhFQ&usqp=CAc" },
+            { id: 10, category: "sun", badge: "POLAROID", name: { uz: "Polaroid Zanglamas", ru: "Поляроид Нержавеющая", en: "Polaroid Stainless" }, desc: { uz: "Polaroid anti-blik linzali va zanglamas metall rom.", ru: "Антибликовые линзы Polaroid и нержавеющая сталь.", en: "Polaroid anti-glare lenses with stainless frame." }, price: "310,000 UZS", rating: "⭐⭐⭐⭐ (4.7)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrxYflh7zW78nKpWuF2yLt6LLsuwhziOcZFl1bHfnnOg&s" },
+            { id: 11, category: "sun", badge: "BLUE", name: { uz: "Dengiz Moviy", ru: "Морской Синий", en: "Ocean Blue" }, desc: { uz: "Moviy tusli nurlarni qaytaruvchi polarizatsiyalangan ko'zoynak.", ru: "Поляризованные очки с синим оттенком.", en: "Polarized sunglasses with deep ocean blue tint." }, price: "290,000 UZS", rating: "⭐⭐⭐⭐ (4.6)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThCd-AZq-QjOSS09vzdjVfY4KL_U-1wWXORnEJDAns6g&s=10" },
+            { id: 12, category: "premium", badge: "VIP", name: { uz: "Vip Avangard", ru: "Вип Авангард", en: "Vip Avantgarde" }, desc: { uz: "Yuqori tabaqadagi brend uslubini aks ettiruvchi VIP model.", ru: "VIP модель для настоящих ценителей бренд-стиля.", en: "VIP model reflecting high-end luxury styling." }, price: "480,000 UZS", rating: "⭐⭐⭐⭐⭐ (5.0)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsVvabY3-FZ0bSaqi-LLZ-cNYZHETHMbtowz3dCfjy7w&s" },
+            { id: 13, category: "optical", badge: "URBAN", name: { uz: "Urban Urbanite", ru: "Урбан Урбанайт", en: "Urban Urbanite" }, desc: { uz: "Shahar bo'ylab sayr va kundalik kiyish uchun qulay ko'zoynak.", ru: "Удобные очки для прогулок по городу.", en: "Comfortable eyewear designed for everyday urban wear." }, price: "330,000 UZS", rating: "⭐⭐⭐⭐ (4.7)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTrU_o83YzLkYRGcZzBEMNag19_qTF1bWXQhGkJJ5rsw&s" },
+            { id: 14, category: "optical", badge: "SUIT", name: { uz: "Bleyzer Brend", ru: "Блейзер Бренд", en: "Blazer Brand" }, desc: { uz: "Klassik kiyim va kostyum bilan ideal tushuvchi dizayn.", ru: "Отлично сочетается с классическим костюмом.", en: "Complements suit styles and formal attire." }, price: "360,000 UZS", rating: "⭐⭐⭐⭐⭐ (4.8)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJqOH9kC8vjc2Ri3g6abRyzxeUeI4ENlKXrOPIGYjwfQ&s=10" },
+            { id: 15, category: "premium", badge: "LUX", name: { uz: "Lyuks Ko'zoynak", ru: "Люкс Очки", en: "Lux Glasses" }, desc: { uz: "Premium sifatli shisha linza va maxsus qutisi bilan.", ru: "Премиальное стекло и фирменный футляр.", en: "Premium glass lens with standard signature case." }, price: "520,000 UZS", rating: "⭐⭐⭐⭐⭐ (4.9)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP9CHzRvJovJ640xkpt6irVfi8xL6_FibIoAGU5qWpPA&s" },
+            { id: 16, category: "premium", badge: "TITANIUM", name: { uz: "Titan Korpus", ru: "Титановый Корпус", en: "Titanium Body" }, desc: { uz: "O'ta yengil va deyarli og'irligi sezilmaydigan titan karkas.", ru: "Сверхлегкая титановая оправа высшего качества.", en: "Ultra-lightweight high quality titanium frame." }, price: "600,000 UZS", rating: "⭐⭐⭐⭐⭐ (5.0)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOX8a_TvXK9wvTxo7mM-W_7M2mPsw1_ooaSuLfASuN6Q&s" },
+            { id: 17, category: "sun", badge: "UV400", name: { uz: "Quyoshga Qarshi Ex", ru: "Защита от Солнца Ex", en: "Sun Protect Ex" }, desc: { uz: "Maksimal UV nurlardan ko'zni asrovchi quyosh ko'zoynagi.", ru: "Максимальная защита от вредных УФ лучей.", en: "Maximum eye protection from harmful UV rays." }, price: "260,000 UZS", rating: "⭐⭐⭐⭐ (4.5)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUqo-CopEmBQu1kDiqOMEETC3BxwXrjPDeApjBeIjaig&s" },
+            { id: 18, category: "optical", badge: "LIGHT", name: { uz: "Ultra Yengil", ru: "Ультра Легкие", en: "Ultra Light" }, desc: { uz: "Kunning barcha qismida quloqqa va burunga bosim o'tkazmaydi.", ru: "Не давит на нос и уши в течение всего дня.", en: "No pressure on nose or ears for all-day wear." }, price: "340,000 UZS", rating: "⭐⭐⭐⭐ (4.7)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZHJzRcN64WKJTkJPmxnbjjbaBABd6iudYZnzXgurXRQ&s=10" },
+            { id: 19, category: "sun", badge: "BROWN", name: { uz: "Klassik Braun", ru: "Классик Браун", en: "Classic Brown" }, desc: { uz: "Jigarrang tusli issiq va shinam uslubdagi linzalar.", ru: "Теплый стильный коричневый оттенок линз.", en: "Warm stylish brown tinted fashion lens." }, price: "370,000 UZS", rating: "⭐⭐⭐⭐⭐ (4.8)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5OatbipNpZpsWoL6xZIy-1FU_ISkbqwEp3whTKT9bcg&s=10" },
+            { id: 20, category: "premium", badge: "NEW 2026", name: { uz: "Yangi Eksklyuziv Trend", ru: "Новая Эксклюзивная Тренд", en: "New Exclusive Trend" }, desc: { uz: "2026-yilning eng so'nggi va zamonaviy eksklyuziv ko'zoynagi.", ru: "Самая последняя эксклюзивная новинка 2026 года.", en: "The latest exclusive new model for 2026." }, price: "550,000 UZS", rating: "⭐⭐⭐⭐⭐ (5.0)", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSp3NMsC0TDY7Mp9VO1dRI8m8J1Pp5WtXaJW92dLgTx_g&s=10" }
+        ];
+
+        const translations = {
+            uz: {
+                home: "Bosh sahifa",
+                catalog: "Katalog",
+                catalogTitle: "Barcha Ko'zoynaklar Katalogi",
+                catalogSub: "Eng sara premium ko'zoynaklar va aksessuarlar to'plami",
+                detail: "Batafsil / Trendlar",
+                about: "Biz haqimizda",
+                cart: "Savat",
+                contact: "Aloqa & Buyurtma",
+                addCart: "Savatga qo'shish",
+                catAll: "Barchasi",
+                catSun: "Quyoshdan",
+                catOpt: "Optik / Kompyuter",
+                catPrem: "Premium"
+            },
+            ru: {
+                home: "Главная",
+                catalog: "Каталог",
+                catalogTitle: "Каталог Всех Очков",
+                catalogSub: "Коллекция лучших премиальных очков и аксессуаров",
+                detail: "Детали / Тренды",
+                about: "О нас",
+                cart: "Корзина",
+                contact: "Контакты & Заказ",
+                addCart: "В корзину",
+                catAll: "Все",
+                catSun: "Солнцезащитные",
+                catOpt: "Компьютерные",
+                catPrem: "Премиум"
+            },
+            en: {
+                home: "Home",
+                catalog: "Catalog",
+                catalogTitle: "All Glasses Catalog",
+                catalogSub: "Collection of top premium eyewear and accessories",
+                detail: "Details / Trends",
+                about: "About Us",
+                cart: "Cart",
+                contact: "Contact & Order",
+                addCart: "Add to Cart",
+                catAll: "All",
+                catSun: "Sunglasses",
+                catOpt: "Optical",
+                catPrem: "Premium"
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'uz';
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+        let currentCategory = 'all';
+        let cart = JSON.parse(localStorage.getItem('cart_items')) || [];
+
+        function toggleTheme() {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            localStorage.setItem('theme', currentTheme);
+            document.getElementById('theme-btn').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+        }
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            updateTexts();
+            renderProducts();
+        }
+
+        function updateTexts() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang] && translations[currentLang][key]) {
+                    el.textContent = translations[currentLang][key];
+                }
+            });
+            document.getElementById('cart-badge-count').textContent = cart.length;
+        }
+
+        function setCategory(cat, btn) {
+            currentCategory = cat;
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderProducts();
+        }
+
+        function addToCart(id) {
+            const p = products.find(x => x.id === id);
+            cart.push(p);
+            localStorage.setItem('cart_items', JSON.stringify(cart));
+            updateTexts();
+            alert(p.name[currentLang] + " " + (currentLang === 'uz' ? "savatga qo'shildi!" : currentLang === 'ru' ? "добавлен в корзину!" : "added to cart!"));
+        }
+
+        function renderProducts() {
+            const grid = document.getElementById('product-container');
+            const searchVal = document.getElementById('search-input').value.toLowerCase();
+
+            const filtered = products.filter(p => {
+                const matchesCat = (currentCategory === 'all' || p.category === currentCategory);
+                const matchesSearch = p.name[currentLang].toLowerCase().includes(searchVal);
+                return matchesCat && matchesSearch;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 3rem; color: var(--text-secondary);">Mahsulot topilmadi.</p>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(p => `
+        <div class="product-card">
+          <div class="product-badge">${p.badge}</div>
+          <img src="${p.img}" alt="${p.name[currentLang]}" class="product-img">
+          <div class="product-info">
+            <div class="product-title">${p.name[currentLang]}</div>
+            <div class="product-desc">${p.desc[currentLang]}</div>
+            <div class="product-rating">${p.rating}</div>
+            <div class="product-price">${p.price}</div>
+            <button class="btn-primary" onclick="addToCart(${p.id})">${translations[currentLang].addCart}</button>
+          </div>
+        </div>
+      `).join('');
+        }
+
+        function filterProducts() {
+            renderProducts();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            document.getElementById('theme-btn').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+            updateTexts();
+            renderProducts();
+        });
+    </script>
+</body>
+
+</html>

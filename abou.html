@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="uz" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Optika.uz - Biz Haqimizda</title>
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #151c2c;
+            --bg-card: #1e293b;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --accent-gold: #f59e0b;
+            --border-color: #334155;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --accent-gold: #d97706;
+            --border-color: #e2e8f0;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+
+        .nav-container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            background-color: var(--accent);
+            color: #ffffff;
+        }
+
+        .cart-badge {
+            background-color: #ef4444;
+            color: white;
+            border-radius: 9999px;
+            padding: 0.2rem 0.6rem;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-left: 5px;
+        }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .control-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem 0.9rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .control-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        main {
+            max-width: 1300px;
+            margin: 2.5rem auto;
+            padding: 0 1.5rem;
+            flex: 1;
+            width: 100%;
+        }
+
+        .about-hero {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-card) 100%);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            padding: 4rem 2rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow);
+        }
+
+        .about-hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .about-hero p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .feature-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--accent-gold);
+        }
+
+        .feature-desc {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .stats-section {
+            background-color: var(--bg-secondary);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            padding: 3rem 2rem;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 2rem;
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .stat-item h2 {
+            font-size: 3rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-item p {
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
+
+        .testimonials-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .testimonial-card {
+            background-color: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border-color);
+            padding: 1.8rem;
+            box-shadow: var(--shadow);
+        }
+
+        .client-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .client-rating {
+            color: var(--accent-gold);
+            margin-bottom: 0.8rem;
+        }
+
+        .client-text {
+            color: var(--text-secondary);
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        footer {
+            background-color: var(--bg-secondary);
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 2rem;
+            margin-top: auto;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">🕶 OPTIKA.UZ</a>
+            <ul class="nav-links">
+                <li><a href="index.html" data-i18n="home">Bosh sahifa</a></li>
+                <li><a href="catalog.html" data-i18n="catalog">Katalog</a></li>
+                <li><a href="detail.html" data-i18n="detail">Batafsil / Trendlar</a></li>
+                <li><a href="about.html" class="active" data-i18n="about">Biz haqimizda</a></li>
+                <li><a href="cart.html" data-i18n="cart">Savat <span id="cart-badge-count"
+                            class="cart-badge">0</span></a></li>
+                <li><a href="contact.html" data-i18n="contact">Aloqa & Buyurtma</a></li>
+            </ul>
+            <div class="controls">
+                <button id="theme-btn" class="control-btn" onclick="toggleTheme()">🌙</button>
+                <button class="control-btn" onclick="changeLanguage('uz')">UZ</button>
+                <button class="control-btn" onclick="changeLanguage('ru')">RU</button>
+                <button class="control-btn" onclick="changeLanguage('en')">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="about-hero">
+            <h1 data-i18n="heroTitle">Bizning Do'kon Haqida</h1>
+            <p data-i18n="heroDesc">Optika.uz — 2026-yilning eng so'nggi va zamonaviy ko'zoynak trendlarini taklif
+                etuvchi yetakchi brend. Biz har bir mijoz uchun yuqori sifat, zamonaviy dizayn va ko'z salomatligini
+                kafolatlaymiz.</p>
+        </section>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🛡️</div>
+                <div class="feature-title" data-i18n="f1Title">UV400 Himoyasi</div>
+                <div class="feature-desc" data-i18n="f1Desc">Barcha ko'zoynaklarimiz zararli ultra-binafsha nurlardan
+                    100% himoya qiluvchi premium linzalar bilan jihozlangan.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💎</div>
+                <div class="feature-title" data-i18n="f2Title">Titan Karkas</div>
+                <div class="feature-desc" data-i18n="f2Desc">O'ta yengil va mustahkam titan karkaslarimiz kun bo'yi
+                    qulay va yengil taqib yurishni ta'minlaydi.</div>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🚀</div>
+                <div class="feature-title" data-i18n="f3Title">Tezkor Yetkazish</div>
+                <div class="feature-desc" data-i18n="f3Desc">O'zbekiston bo'ylab barcha buyurtmalar Telegram botimiz va
+                    kurerlarimiz orqali tezda yetkazib beriladi.</div>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <div class="stat-item">
+                <h2>5,000+</h2>
+                <p data-i18n="st1">Mamnun Mijozlar</p>
+            </div>
+            <div class="stat-item">
+                <h2>20+</h2>
+                <p data-i18n="st2">Trend Modellar</p>
+            </div>
+            <div class="stat-item">
+                <h2>100%</h2>
+                <p data-i18n="st3">Sifat Kafolati</p>
+            </div>
+        </div>
+
+        <h2 class="testimonials-title" data-i18n="testiTitle">Mijozlarimiz Fikrlari</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="client-name">Sardor Rahimov</div>
+                <div class="client-rating">⭐⭐⭐⭐⭐</div>
+                <div class="client-text">"Titan korpusli ko'zoynak sotib oldim. Juda yengil va sifatli ekan. Bot orqali
+                    buyurtma ham tez rasmiylashtirildi!"</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="client-name">Елена Смирнова</div>
+                <div class="client-rating">⭐⭐⭐⭐⭐</div>
+                <div class="client-text">"Заказывала через телеграм бот @nurmuha114_bot. Очень качественная упаковка и
+                    стильные очки 2026 года!"</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="client-name">Jasur Malikov</div>
+                <div class="client-rating">⭐⭐⭐⭐⭐</div>
+                <div class="client-text">"Klassik qora modelini oldim, quyoshdan himoyasi a'lo darajada. Tavsiya
+                    qilaman!"</div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Optika.uz. Telegram Kanalimiz: <a href="https://t.me/achki_trend"
+                style="color:var(--accent); text-decoration:none;" target="_blank">@achki_trend</a></p>
+    </footer>
+
+    <script>
+        const translations = {
+            uz: {
+                home: "Bosh sahifa",
+                catalog: "Katalog",
+                detail: "Batafsil / Trendlar",
+                about: "Biz haqimizda",
+                cart: "Savat",
+                contact: "Aloqa & Buyurtma",
+                heroTitle: "Bizning Do'kon Haqida",
+                heroDesc: "Optika.uz — 2026-yilning eng so'nggi va zamonaviy ko'zoynak trendlarini taklif etuvchi yetakchi brend. Biz har bir mijoz uchun yuqori sifat, zamonaviy dizayn va ko'z salomatligini kafolatlaymiz.",
+                f1Title: "UV400 Himoyasi",
+                f1Desc: "Barcha ko'zoynaklarimiz zararli ultra-binafsha nurlardan 100% himoya qiluvchi premium linzalar bilan jihozlangan.",
+                f2Title: "Titan Karkas",
+                f2Desc: "O'ta yengil va mustahkam titan karkaslarimiz kun bo'yi qulay va yengil taqib yurishni ta'minlaydi.",
+                f3Title: "Tezkor Yetkazish",
+                f3Desc: "O'zbekiston bo'ylab barcha buyurtmalar Telegram botimiz va kurerlarimiz orqali tezda yetkazib beriladi.",
+                st1: "Mamnun Mijozlar",
+                st2: "Trend Modellar",
+                st3: "Sifat Kafolati",
+                testiTitle: "Mijozlarimiz Fikrlari"
+            },
+            ru: {
+                home: "Главная",
+                catalog: "Каталог",
+                detail: "Детали / Тренды",
+                about: "О нас",
+                cart: "Корзина",
+                contact: "Контакты & Заказ",
+                heroTitle: "О Нашем Магазине",
+                heroDesc: "Optika.uz — ведущий бренд, предлагающий самые последние и современные тренды очков 2026 года. Мы гарантируем высокое качество и защиту для каждого клиента.",
+                f1Title: "Защита UV400",
+                f1Desc: "Все наши очки оснащены линзами премиум-класса с 100% защитой от вредного ультрафиолета.",
+                f2Title: "Титановый Каркас",
+                f2Desc: "Сверхлегкие и прочные титановые оправы обеспечивают комфортное ношение в течение всего дня.",
+                f3Title: "Быстрая Доставка",
+                f3Desc: "Все заказы быстро доставляются по Узбекистану через наш Telegram-бот и курьеров.",
+                st1: "Довольных Клиентов",
+                st2: "Трендовых Моделей",
+                st3: "Гарантия Качества",
+                testiTitle: "Отзывы Наших Клиентов"
+            },
+            en: {
+                home: "Home",
+                catalog: "Catalog",
+                detail: "Details / Trends",
+                about: "About Us",
+                cart: "Cart",
+                contact: "Contact & Order",
+                heroTitle: "About Our Store",
+                heroDesc: "Optika.uz is a leading brand offering the latest and most modern eyewear trends of 2026. We guarantee top quality and style for every single customer.",
+                f1Title: "UV400 Protection",
+                f1Desc: "All our sunglasses are equipped with premium lenses providing 100% UV protection.",
+                f2Title: "Titanium Frame",
+                f2Desc: "Ultra-lightweight and durable titanium frames ensure comfortable all-day wear.",
+                f3Title: "Fast Delivery",
+                f3Desc: "All orders across Uzbekistan are delivered rapidly via our Telegram bot and dispatchers.",
+                st1: "Happy Clients",
+                st2: "Trend Models",
+                st3: "Quality Guarantee",
+                testiTitle: "Client Testimonials"
+            }
+        };
+
+        let currentLang = localStorage.getItem('lang') || 'uz';
+        let currentTheme = localStorage.getItem('theme') || 'dark';
+        let cart = JSON.parse(localStorage.getItem('cart_items')) || [];
+
+        function toggleTheme() {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            localStorage.setItem('theme', currentTheme);
+            document.getElementById('theme-btn').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+        }
+
+        function changeLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
+            updateTexts();
+        }
+
+        function updateTexts() {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[currentLang] && translations[currentLang][key]) {
+                    el.textContent = translations[currentLang][key];
+                }
+            });
+            const badge = document.getElementById('cart-badge-count');
+            if (badge) badge.textContent = cart.length;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            const themeBtn = document.getElementById('theme-btn');
+            if (themeBtn) themeBtn.textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+            updateTexts();
+        });
+    </script>
+</body>
+
+</html>
